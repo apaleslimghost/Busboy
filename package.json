@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "cordova": "cordova",
-    "build": "browserify app/index.js -o www/js/index.js",
-    "watch": "watchify   app/index.js -o www/js/index.js"
+    "build": "browserify  app/index.js -o www/js/index.js",
+    "watch": "watchify -d app/index.js -o www/js/index.js"
   },
   "browserify": {
     "transform": [
