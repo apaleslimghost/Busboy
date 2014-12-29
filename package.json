@@ -15,7 +15,8 @@
         {
           "es6": true
         }
-      ]
+      ],
+      "lessify"
     ]
   },
   "repository": {
