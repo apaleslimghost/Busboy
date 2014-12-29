@@ -3,7 +3,7 @@ var mui   = require('material-ui');
 
 var Busboy = React.createClass({
   render() {
-    return <mui.Toolbar/>;
+    return <h1>Frob</h1>;
   }
 });
 
