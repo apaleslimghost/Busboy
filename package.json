@@ -4,15 +4,20 @@
   "description": "TfL live bus times app",
   "main": "index.js",
   "scripts": {
-      "cordova": "cordova",
-      "build": "browserify app/index.js -o www/js/index.js",
-      "watch": "watchify   app/index.js -o www/js/index.js"
+    "cordova": "cordova",
+    "build": "browserify app/index.js -o www/js/index.js",
+    "watch": "watchify   app/index.js -o www/js/index.js"
   },
-    "browserify": {
+  "browserify": {
     "transform": [
-        ["reactify", {"es6": true}]
+      [
+        "reactify",
+        {
+          "es6": true
+        }
+      ]
     ]
-    },
+  },
   "repository": {
     "type": "git",
     "url": "git://github.com/quarterto/Busboy.git"
