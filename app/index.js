@@ -29,7 +29,7 @@ var Busboy = React.createClass({
       {this.state.meta.loading && 'loading'}
       <nav className="toolbar">
         <h1 className="toolbar-title">BUSBOY</h1>
-      {_.map(this.stops(), (stop) => {
+      {this.stops().map((stop) => {
         return <a className="toolbar-tab" key={stop.stopId} href={'#' + stop.stopId} onClick={this.switchTab}>
           {stop.stopPointIndicator}
         </a>;
