@@ -5,7 +5,7 @@ var _ = require('underscore');
 
 var Icon = React.createClass({
   render() {
-    return <i className={'mdfi_' + this.props.id}/>
+    return <i className={'mdfi_' + this.props.id + ' ' + this.props.className}/>
   }
 });
 
@@ -32,14 +32,14 @@ var Busboy = React.createClass({
 
   render() {
     return <main className="app">
-      {this.state.meta.loading && <Icon id="notification_sync"/>}
       <nav className="toolbar">
         <h1 className="toolbar-title">BUSBOY</h1>
       {this.stops().map((stop) => {
         return <a className="toolbar-tab" key={stop.stopId} href={'#' + stop.stopId} onClick={this.switchTab}>
-          {stop.stopPointIndicator}
+          <span className="bus-emblem">{stop.stopPointIndicator}</span>
         </a>;
       })}
+      {this.state.meta.loading && <Icon id="notification_sync" className="pull-right"/>}
       </nav>
     </main>;
   }
