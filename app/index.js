@@ -22,12 +22,20 @@ var Busboy = React.createClass({
     return _.reject(this.state, (v, k) => k === 'meta');
   },
 
+  switchTab() {},
+
   render() {
-    return <div>
-      <h1>Busboy</h1>
+    return <main className="app">
       {this.state.meta.loading && 'loading'}
-      <ul>{_.map(this.stops(), (stop) => <li>{stop.stopId}</li>)}</ul>
-    </div>;
+      <nav className="toolbar">
+        <h1 className="toolbar-title">BUSBOY</h1>
+      {_.map(this.stops(), (stop) => {
+        return <a className="toolbar-tab" key={stop.stopId} href={'#' + stop.stopId} onClick={this.switchTab}>
+          {stop.stopPointIndicator}
+        </a>;
+      })}
+      </nav>
+    </main>;
   }
 });
 
