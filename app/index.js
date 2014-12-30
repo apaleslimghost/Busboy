@@ -18,10 +18,14 @@ var Busboy = React.createClass({
     }, 100), 'stops');
   },
 
+  stops() {
+    return _.reject(this.state.stops, (v, k) => k === 'meta');
+  },
+
   render() {
     return <div>
       <h1>Busboy</h1>
-      <ul>{_.map(this.state.stops, (stop) => <li>{stop.stopId}</li>)}</ul>
+      <ul>{_.map(this.stops(), (stop) => <li>{stop.stopId}</li>)}</ul>
     </div>;
   }
 });
