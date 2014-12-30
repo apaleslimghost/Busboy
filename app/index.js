@@ -3,6 +3,12 @@ var {BaconMixin} = require('react-bacon');
 var busboy = require('tfl-busboy');
 var _ = require('underscore');
 
+var Icon = React.createClass({
+  render() {
+    return <i className={'mdfi_' + this.props.id}/>
+  }
+});
+
 var Busboy = React.createClass({
   mixins: [BaconMixin],
 
@@ -26,7 +32,7 @@ var Busboy = React.createClass({
 
   render() {
     return <main className="app">
-      {this.state.meta.loading && 'loading'}
+      {this.state.meta.loading && <Icon id="notification_sync"/>}
       <nav className="toolbar">
         <h1 className="toolbar-title">BUSBOY</h1>
       {this.stops().map((stop) => {
@@ -41,3 +47,4 @@ var Busboy = React.createClass({
 
 React.render(<Busboy/>, document.body);
 require('./index.scss');
+require('../node_modules/material-design-fonticons/styles/mdfi.css');
