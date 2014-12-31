@@ -42,7 +42,7 @@ var Stop = React.createClass({
         heading: this.props.stop.bearing - 90
       }
     };
-    return 'url("' + url.format(opts) + '")';
+    return 'linear-gradient(to bottom, rgba(20,20,20,0.1), rgba(20,20,20,0.1), rgba(20,20,20,0.6)), url("' + url.format(opts) + '")';
   },
 
   render() {
