@@ -60,7 +60,8 @@ var Busboy = React.createClass({
 
   getInitialState() {
     return {
-      stops: {meta: {loading: true}}
+      stops: {meta: {loading: true}},
+      currentStop: 0
     };
   },
 
@@ -71,12 +72,12 @@ var Busboy = React.createClass({
   },
 
   stops() {
-    return _.reject(this.state.stops, (v, k) => k === 'meta');
+    return _.chain(this.state.stops).reject((v, k) => k === 'meta').value();
   },
 
-  switchTab(e, stop) {
+  switchTab(e) {
     this.setState({
-      currentStop: stop.stopId
+      currentStop: [].indexOf.call(e.currentTarget.parentNode.childNodes, e.currentTarget)
     });
   },
 
@@ -84,10 +85,10 @@ var Busboy = React.createClass({
     return <main className="app">
       <nav className="toolbar">
         <h1 className="toolbar-title">BUSBOY</h1>
-      {this.stops().map((stop) => <Tab key={stop.stopId} stop={stop} onClick={this.switchTab} active={this.state.currentStop === stop.stopId}/>)}
-      {this.state.stops.meta.loading && <Icon id="notification_sync" className="pull-right"/>}
+      <span>{this.stops().map((stop) => <Tab key={stop.stopId} stop={stop} onClick={this.switchTab} active={this.state.currentStop === stop.stopId}/>)}
+      {this.state.stops.meta.loading && <Icon id="notification_sync" className="pull-right"/>}</span>
       </nav>
-      {this.state.currentStop && <Stop stop={this.state.stops[this.state.currentStop]}/>}
+      {!this.state.stops.meta.loading && this.stops().length && <Stop stop={this.stops()[this.state.currentStop]}/>}
     </main>;
   }
 });
