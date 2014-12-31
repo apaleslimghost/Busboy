@@ -98,7 +98,12 @@ var Busboy = React.createClass({
   },
 
   stops() {
-    return _.chain(this.state.stops).reject((v, k) => k === 'meta').value();
+    return _.chain(this.state.stops)
+      .reject((v, k) => k === 'meta')
+      .sortBy((stop) => geoToLatlon(this.state.location).distanceTo(
+        geoToLatlon({coords: stop})
+      ))
+      .value();
   },
 
   switchTab(e) {
@@ -111,7 +116,7 @@ var Busboy = React.createClass({
     return <main className="app">
       <nav className="toolbar">
         <h1 className="toolbar-title">BUSBOY</h1>
-      <span>{this.stops().map((stop) => <Tab key={stop.stopId} stop={stop} onClick={this.switchTab} active={this.state.currentStop === stop.stopId}/>)}
+      <span>{this.stops().map((stop, i) => <Tab key={stop.stopId} stop={stop} onClick={this.switchTab} active={this.state.currentStop === i}/>)}
       {this.state.stops.meta.loading && <Icon id="notification_sync" className="pull-right"/>}</span>
       </nav>
       {!this.state.stops.meta.loading && this.stops().length && <Stop stop={this.stops()[this.state.currentStop]} location={this.state.location}/>}
