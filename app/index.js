@@ -21,6 +21,16 @@ var Tab = React.createClass({
   }
 });
 
+var Stop = React.createClass({
+  render() {
+    return <div className="stop">
+      <header className="stop-header">
+      <h1>{this.props.stop.stopPointName}</h1>
+      </header>
+    </div>;
+  }
+});
+
 var Busboy = React.createClass({
   mixins: [BaconMixin],
 
@@ -43,7 +53,7 @@ var Busboy = React.createClass({
   switchTab(e, stop) {
     this.setState({
       currentStop: stop.stopId
-    })
+    });
   },
 
   render() {
@@ -52,8 +62,8 @@ var Busboy = React.createClass({
         <h1 className="toolbar-title">BUSBOY</h1>
       {this.stops().map((stop) => <Tab key={stop.stopId} stop={stop} onClick={this.switchTab}/>)}
       {this.state.stops.meta.loading && <Icon id="notification_sync" className="pull-right"/>}
-    </nav>
-      {this.state.currentStop}
+      </nav>
+      {this.state.currentStop && <Stop stop={this.state.stops[this.state.currentStop]}/>}
     </main>;
   }
 });
