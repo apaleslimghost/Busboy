@@ -2,6 +2,7 @@ var React = require('react');
 var {BaconMixin} = require('react-bacon');
 var busboy = require('tfl-busboy');
 var _ = require('underscore');
+var url = require('url');
 
 var Icon = React.createClass({
   render() {
@@ -22,9 +23,31 @@ var Tab = React.createClass({
 });
 
 var Stop = React.createClass({
+  streetView() {
+    var opts = {
+      protocol: 'https',
+      hostname: 'maps.googleapis.com',
+      pathname: 'maps/api/streetview',
+      query: {
+        size: [
+          window.innerWidth,
+          window.innerWidth / 2
+        ].join('x'),
+        location: [
+          this.props.stop.latitude,
+          this.props.stop.longitude
+        ].join(),
+        fov: 180,
+        pitch: 0,
+        heading: this.props.stop.bearing - 90
+      }
+    };
+    return 'url("' + url.format(opts) + '")';
+  },
+
   render() {
     return <div className="stop">
-      <header className="stop-header">
+      <header className="stop-header" style={{backgroundImage: this.streetView()}}>
       <h1 className="stop-title"><span className="bus-emblem">{this.props.stop.stopPointIndicator}</span> {this.props.stop.stopPointName}</h1>
       <h2 className="stop-destination">Towards {this.props.stop.towards}</h2>
       </header>
