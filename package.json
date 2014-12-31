@@ -45,6 +45,7 @@
     "watchify": "^2.2.1"
   },
   "dependencies": {
+    "baconjs": "^0.7.41",
     "material-design-fonticons": "^1.0.0",
     "mt-latlon": "0.0.3",
     "react": "^0.12.2",

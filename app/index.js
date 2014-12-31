@@ -4,8 +4,19 @@ var busboy = require('tfl-busboy');
 var _ = require('underscore');
 var url = require('url');
 var LatLon = require('mt-latlon');
+var Bacon = require('baconjs');
 
-var startPos = new LatLon(51.371422, -0.227344);
+function geoToLatlon({coords}) {
+  return new LatLon(coords.latitude, coords.longitude);
+}
+
+function pollLocation() {
+  return Bacon.fromCallback(navigator.geolocation, 'getCurrentPosition')
+    .concat(Bacon.interval(30000).flatMap(function() {
+      return Bacon.fromCallback(navigator.geolocation, 'getCurrentPosition');
+    }));
+}
+
 
 var Icon = React.createClass({
   render() {
@@ -27,11 +38,8 @@ var Tab = React.createClass({
 
 var Stop = React.createClass({
   distanceToStart() {
-    return Math.round(10 * startPos.distanceTo(
-      new LatLon(
-        this.props.stop.latitude,
-        this.props.stop.longitude
-      )
+    return Math.round(10 * geoToLatlon(this.props.location).distanceTo(
+      geoToLatlon({coords: this.props.stop})
     ) / 1.609344) / 10;
   },
 
@@ -79,9 +87,14 @@ var Busboy = React.createClass({
   },
 
   componentWillMount() {
-    this.plug(busboy.around({
-      lat: startPos.lat(), lng: startPos.lon()
-    }, 100), 'stops');
+    var location = pollLocation();
+
+    this.plug(location, 'location');
+    this.plug(location.flatMap(function({coords}) {
+      return busboy.around({
+        lat: coords.latitude, lng: coords.longitude
+      }, Math.min(Math.max(coords.accuracy, 200), 1000));
+    }), 'stops');
   },
 
   stops() {
@@ -101,7 +114,7 @@ var Busboy = React.createClass({
       <span>{this.stops().map((stop) => <Tab key={stop.stopId} stop={stop} onClick={this.switchTab} active={this.state.currentStop === stop.stopId}/>)}
       {this.state.stops.meta.loading && <Icon id="notification_sync" className="pull-right"/>}</span>
       </nav>
-      {!this.state.stops.meta.loading && this.stops().length && <Stop stop={this.stops()[this.state.currentStop]}/>}
+      {!this.state.stops.meta.loading && this.stops().length && <Stop stop={this.stops()[this.state.currentStop]} location={this.state.location}/>}
     </main>;
   }
 });
