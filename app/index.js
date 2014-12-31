@@ -3,6 +3,9 @@ var {BaconMixin} = require('react-bacon');
 var busboy = require('tfl-busboy');
 var _ = require('underscore');
 var url = require('url');
+var LatLon = require('mt-latlon');
+
+var startPos = new LatLon(51.371422, -0.227344);
 
 var Icon = React.createClass({
   render() {
@@ -23,6 +26,15 @@ var Tab = React.createClass({
 });
 
 var Stop = React.createClass({
+  distanceToStart() {
+    return Math.round(10 * startPos.distanceTo(
+      new LatLon(
+        this.props.stop.latitude,
+        this.props.stop.longitude
+      )
+    ) / 1.609344) / 10;
+  },
+
   streetView() {
     var opts = {
       protocol: 'https',
@@ -50,6 +62,7 @@ var Stop = React.createClass({
       <header className="stop-header" style={{backgroundImage: this.streetView()}}>
       <h1 className="stop-title"><span className="bus-emblem">{this.props.stop.stopPointIndicator}</span> {this.props.stop.stopPointName}</h1>
       <h2 className="stop-destination">Towards {this.props.stop.towards}</h2>
+      <h3 className="stop-distance">{this.distanceToStart()} miles</h3>
       </header>
     </div>;
   }
@@ -67,7 +80,7 @@ var Busboy = React.createClass({
 
   componentWillMount() {
     this.plug(busboy.around({
-      lat: 51.371422, lng: -0.227344
+      lat: startPos.lat(), lng: startPos.lon()
     }, 100), 'stops');
   },
 

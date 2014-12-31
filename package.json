@@ -16,8 +16,8 @@
           "es6": true
         }
       ],
-        "sassify",
-        "cssify"
+      "sassify",
+      "cssify"
     ]
   },
   "repository": {
@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "material-design-fonticons": "^1.0.0",
+    "mt-latlon": "0.0.3",
     "react": "^0.12.2",
     "react-bacon": "0.0.4",
     "react-tap-event-plugin": "^0.1.3",
