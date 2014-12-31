@@ -9,38 +9,51 @@ var Icon = React.createClass({
   }
 });
 
+var Tab = React.createClass({
+  switchTab(e) {
+    this.props.onClick(e, this.props.stop);
+  },
+
+  render() {
+    return <a className="toolbar-tab" href={'#' + this.props.stop.stopId} onClick={this.switchTab}>
+      <span className="bus-emblem">{this.props.stop.stopPointIndicator}</span>
+    </a>;
+  }
+});
+
 var Busboy = React.createClass({
   mixins: [BaconMixin],
 
   getInitialState() {
     return {
-      meta: {}
+      stops: {meta: {loading: true}}
     };
   },
 
   componentWillMount() {
     this.plug(busboy.around({
       lat: 51.371422, lng: -0.227344
-    }, 100));
+    }, 100), 'stops');
   },
 
   stops() {
-    return _.reject(this.state, (v, k) => k === 'meta');
+    return _.reject(this.state.stops, (v, k) => k === 'meta');
   },
 
-  switchTab() {},
+  switchTab(e, stop) {
+    this.setState({
+      currentStop: stop.stopId
+    })
+  },
 
   render() {
     return <main className="app">
       <nav className="toolbar">
         <h1 className="toolbar-title">BUSBOY</h1>
-      {this.stops().map((stop) => {
-        return <a className="toolbar-tab" key={stop.stopId} href={'#' + stop.stopId} onClick={this.switchTab}>
-          <span className="bus-emblem">{stop.stopPointIndicator}</span>
-        </a>;
-      })}
-      {this.state.meta.loading && <Icon id="notification_sync" className="pull-right"/>}
-      </nav>
+      {this.stops().map((stop) => <Tab key={stop.stopId} stop={stop} onClick={this.switchTab}/>)}
+      {this.state.stops.meta.loading && <Icon id="notification_sync" className="pull-right"/>}
+    </nav>
+      {this.state.currentStop}
     </main>;
   }
 });
