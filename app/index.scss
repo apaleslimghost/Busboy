@@ -68,6 +68,7 @@ body {
     background-size: 100vw 50vw;
     color: white;
     background-color: #666;
+    text-shadow: 0 1px 30px rgba(darken($buses-red, 20%), 0.4);
 }
 
 .stop-title {

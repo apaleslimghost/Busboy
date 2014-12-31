@@ -31,7 +31,7 @@ var Stop = React.createClass({
       query: {
         size: [
           window.innerWidth,
-          window.innerWidth / 2
+          Math.round(window.innerWidth / 2)
         ].join('x'),
         location: [
           this.props.stop.latitude,
@@ -42,7 +42,7 @@ var Stop = React.createClass({
         heading: this.props.stop.bearing - 90
       }
     };
-    return 'linear-gradient(to bottom, rgba(20,20,20,0.1), rgba(20,20,20,0.1), rgba(20,20,20,0.6)), url("' + url.format(opts) + '")';
+    return 'linear-gradient(to bottom, rgba(220,36,31,0.1), rgba(220,36,31,0.1), rgba(220,36,31,0.3)), url("' + url.format(opts) + '")';
   },
 
   render() {
