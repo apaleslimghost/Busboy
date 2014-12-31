@@ -60,5 +60,17 @@ body {
     background: $buses-red;
     color: white;
     font-weight: bold;
-    margin: 9px 9px 0;
+    margin: 9px;
+}
+
+.stop-title {
+    font-size: 24px;
+
+    .bus-emblem {
+        width: 36px;
+        height: 36px;
+        line-height: 36px;
+        border-radius: 36px;
+        margin: 0;
+    }
 }

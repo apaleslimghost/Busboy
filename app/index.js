@@ -25,7 +25,8 @@ var Stop = React.createClass({
   render() {
     return <div className="stop">
       <header className="stop-header">
-      <h1>{this.props.stop.stopPointName}</h1>
+      <h1 className="stop-title"><span className="bus-emblem">{this.props.stop.stopPointIndicator}</span> {this.props.stop.stopPointName}</h1>
+      <h2 className="stop-destination">Towards {this.props.stop.towards}</h2>
       </header>
     </div>;
   }
