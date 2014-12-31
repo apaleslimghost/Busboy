@@ -1,5 +1,9 @@
 $buses-red: #dc241f;
 
+* {
+    box-sizing: border-box;
+}
+
 body {
     font-family: sans-serif;
     margin: 0;
@@ -36,6 +40,10 @@ body {
     }
 }
 
+.toolbar-tab-active {
+    border-bottom: 3px solid $buses-red;
+}
+
 .toolbar-title {
     padding-right: 1em;
     font-size: inherit;
@@ -52,5 +60,5 @@ body {
     background: $buses-red;
     color: white;
     font-weight: bold;
-    margin: 9px;
+    margin: 9px 9px 0;
 }

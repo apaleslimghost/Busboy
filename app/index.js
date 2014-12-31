@@ -15,7 +15,7 @@ var Tab = React.createClass({
   },
 
   render() {
-    return <a className="toolbar-tab" href={'#' + this.props.stop.stopId} onClick={this.switchTab}>
+    return <a className={'toolbar-tab ' + (this.props.active ? 'toolbar-tab-active' : '')} href={'#' + this.props.stop.stopId} onClick={this.switchTab}>
       <span className="bus-emblem">{this.props.stop.stopPointIndicator}</span>
     </a>;
   }
@@ -60,7 +60,7 @@ var Busboy = React.createClass({
     return <main className="app">
       <nav className="toolbar">
         <h1 className="toolbar-title">BUSBOY</h1>
-      {this.stops().map((stop) => <Tab key={stop.stopId} stop={stop} onClick={this.switchTab}/>)}
+      {this.stops().map((stop) => <Tab key={stop.stopId} stop={stop} onClick={this.switchTab} active={this.state.currentStop === stop.stopId}/>)}
       {this.state.stops.meta.loading && <Icon id="notification_sync" className="pull-right"/>}
       </nav>
       {this.state.currentStop && <Stop stop={this.state.stops[this.state.currentStop]}/>}
