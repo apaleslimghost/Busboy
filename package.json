@@ -6,7 +6,8 @@
   "scripts": {
     "cordova": "cordova",
     "build": "browserify  app/index.js -o www/js/index.js",
-    "watch": "watchify -d app/index.js -o www/js/index.js"
+    "watch": "watchify -d app/index.js -o www/js/index.js",
+    "serve": "cd www; browser-sync start --open --server --files=\"**/*\""
   },
   "browserify": {
     "transform": [
@@ -35,6 +36,7 @@
   },
   "homepage": "https://github.com/quarterto/Busboy",
   "devDependencies": {
+    "browser-sync": "^1.8.3",
     "browserify": "^8.0.2",
     "cordova": "^4.1.2",
     "cssify": "^0.6.0",
