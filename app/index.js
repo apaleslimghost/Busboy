@@ -12,7 +12,7 @@ function geoToLatlon({coords}) {
 
 function pollLocation() {
   return Bacon.fromCallback(navigator.geolocation, 'getCurrentPosition')
-    .concat(Bacon.interval(30000).flatMap(function() {
+    .concat(Bacon.interval(15000).flatMap(function() {
       return Bacon.fromCallback(navigator.geolocation, 'getCurrentPosition');
     }));
 }
@@ -94,6 +94,12 @@ var Busboy = React.createClass({
       return busboy.around({
         lat: coords.latitude, lng: coords.longitude
       }, Math.min(Math.max(coords.accuracy, 200), 1000));
+    }).map((stops) => {
+      if(stops.meta.loading) {
+        return _.extend(this.state.stops, stops);
+      }
+
+      return stops;
     }), 'stops');
   },
 
@@ -119,7 +125,7 @@ var Busboy = React.createClass({
       <span>{this.stops().map((stop, i) => <Tab key={stop.stopId} stop={stop} onClick={this.switchTab} active={this.state.currentStop === i}/>)}
       {this.state.stops.meta.loading && <Icon id="notification_sync" className="pull-right"/>}</span>
       </nav>
-      {!this.state.stops.meta.loading && this.stops().length && <Stop stop={this.stops()[this.state.currentStop]} location={this.state.location}/>}
+      {this.stops().length ? <Stop stop={this.stops()[this.state.currentStop]} location={this.state.location}/> : ''}
     </main>;
   }
 });
