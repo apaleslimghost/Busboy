@@ -37,6 +37,17 @@ var Tab = React.createClass({
   }
 });
 
+var Bus = React.createClass({
+  render() {
+    return <li className="bus-list-item">
+      <h3 className="bus-title">{this.props.name}</h3>
+      <ul className="bus-predictions">
+      {this.props.predictions.map((prediction) => <li className="bus-prediction" key={prediction.tripId}>{moment(prediction.estimatedTime).fromNow(true)}</li>)}
+      </ul>
+    </li>;
+  }
+});
+
 var Stop = React.createClass({
   distanceToStart() {
     return Math.round(10 * geoToLatlon(this.props.location).distanceTo(
@@ -74,9 +85,12 @@ var Stop = React.createClass({
       <h3 className="stop-distance">{this.distanceToStart()} miles</h3>
       </header>
       <ul>
-      {_.map(this.props.stop.predictions, (prediction) => {
-        return <li>{prediction.lineID} {moment(prediction.estimatedTime).fromNow()}</li>;
-      })}
+      {_.chain(this.props.stop.predictions)
+       .groupBy('lineName')
+       .pairs()
+       .sortBy((p) => new Date(p[1][0].estimatedTime))
+       .map((p) => <Bus name={p[0]} key={p[0]} predictions={p[1]} /> )
+       .value()}
       </ul>
     </div>;
   }
