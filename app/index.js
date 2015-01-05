@@ -5,6 +5,7 @@ var _ = require('underscore');
 var url = require('url');
 var LatLon = require('mt-latlon');
 var Bacon = require('baconjs');
+var moment = require('moment');
 
 function geoToLatlon({coords}) {
   return new LatLon(coords.latitude, coords.longitude);
@@ -72,6 +73,11 @@ var Stop = React.createClass({
       <h2 className="stop-destination">Towards {this.props.stop.towards}</h2>
       <h3 className="stop-distance">{this.distanceToStart()} miles</h3>
       </header>
+      <ul>
+      {_.map(this.props.stop.predictions, (prediction) => {
+        return <li>{prediction.lineID} {moment(prediction.estimatedTime).fromNow()}</li>;
+      })}
+      </ul>
     </div>;
   }
 });
