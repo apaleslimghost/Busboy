@@ -18,6 +18,10 @@ function pollLocation() {
     }));
 }
 
+function formatETA(t) {
+  var min = t.diff(moment(), 'minutes');
+  return min < 1 ? 'Due' : min + 'm';
+}
 
 var Icon = React.createClass({
   render() {
@@ -42,7 +46,7 @@ var Bus = React.createClass({
     return <li className="bus-list-item">
       <h3 className="bus-title">{this.props.name}</h3>
       <ul className="bus-predictions">
-      {this.props.predictions.map((prediction) => <li className="bus-prediction" key={prediction.tripId}>{moment(prediction.estimatedTime).fromNow(true)}</li>)}
+      {this.props.predictions.map((prediction) => <li className="bus-prediction" key={prediction.tripId}>{formatETA(moment(prediction.estimatedTime))}</li>)}
       </ul>
     </li>;
   }
