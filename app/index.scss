@@ -13,7 +13,12 @@ body {
     float: right;
 }
 
+$bar-height: 44px;
+
 .toolbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
     padding: 0 1em;
     background: #eee;
 }
@@ -21,8 +26,8 @@ body {
 .toolbar,
 .toolbar-tab,
 .toolbar-title {
-    height: 44px;
-    line-height: 44px;
+    height: $bar-height;
+    line-height: $bar-height;
 }
 
 .toolbar-tab,
@@ -64,6 +69,7 @@ body {
 }
 
 .stop-header {
+    margin-top: $bar-height;
     height: 50vw;
     background-size: 100vw 50vw;
     color: white;
@@ -93,7 +99,7 @@ body {
 }
 
 .bus-list-item {
-    line-height: 44px;
+    line-height: $bar-height;
     border-bottom: 1px solid #eee;
     padding: 0 10px;
 }
