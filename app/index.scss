@@ -103,13 +103,14 @@ body {
 }
 
 .bus-title {
+    display: inline-block;
     font-size: 1.2em;
-    margin: 0;
+    margin: 0 1em 0 0;
 }
 
 .bus-prediction {
     display: inline-block;
-    margin-left: .2em;
+    margin-left: .5em;
 
     &:first-child {
         font-weight: bold;

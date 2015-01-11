@@ -49,6 +49,7 @@ var Bus = React.createClass({
       {this.props.predictions.map((prediction) => <li className="bus-prediction" key={prediction.tripId}>{formatETA(moment(prediction.estimatedTime))}</li>)}
       </ul>
       <h3 className="bus-title">{this.props.name}</h3>
+      <span className="bus-destination">{this.props.predictions[0].destinationName}</span>
     </li>;
   }
 });
