@@ -1,0 +1,8 @@
+{
+	"esnext": true,
+	"browserify": true,
+	"undef": true,
+	"unused": true,
+	"curly": true,
+	"quotmark": "double"
+}
