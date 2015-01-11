@@ -1,3 +1,5 @@
+@import "fonts";
+
 $buses-red: #dc241f;
 
 * {
@@ -5,7 +7,7 @@ $buses-red: #dc241f;
 }
 
 body {
-    font-family: sans-serif;
+    font-family: Aileron, sans-serif;
     margin: 0;
 }
 
