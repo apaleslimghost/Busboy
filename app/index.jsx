@@ -1,3 +1,4 @@
+/* jshint esnext:true, undef:true, unused:true, node:true, browser:true */
 var React = require('react');
 var {BaconMixin} = require('react-bacon');
 var busboy = require('tfl-busboy');
@@ -25,7 +26,7 @@ function formatETA(t) {
 
 var Icon = React.createClass({
   render() {
-    return <i className={'mdfi_' + this.props.id + ' ' + this.props.className}/>
+    return <i className={'mdfi_' + this.props.id + ' ' + this.props.className}/>;
   }
 });
 
