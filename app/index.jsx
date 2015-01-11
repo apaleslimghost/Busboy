@@ -45,10 +45,10 @@ var Tab = React.createClass({
 var Bus = React.createClass({
   render() {
     return <li className="bus-list-item">
-      <h3 className="bus-title">{this.props.name}</h3>
       <ul className="bus-predictions">
       {this.props.predictions.map((prediction) => <li className="bus-prediction" key={prediction.tripId}>{formatETA(moment(prediction.estimatedTime))}</li>)}
       </ul>
+      <h3 className="bus-title">{this.props.name}</h3>
     </li>;
   }
 });
@@ -89,7 +89,7 @@ var Stop = React.createClass({
       <h2 className="stop-destination">Towards {this.props.stop.towards}</h2>
       <h3 className="stop-distance">{this.distanceToStart()} miles</h3>
       </header>
-      <ul>
+      <ul className="bus-list">
       {_.chain(this.props.stop.predictions)
        .groupBy('lineName')
        .pairs()

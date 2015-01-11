@@ -84,3 +84,34 @@ body {
         margin: 0;
     }
 }
+
+.bus-list, .bus-predictions {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    overflow: hidden;
+}
+
+.bus-list-item {
+    line-height: 44px;
+    border-bottom: 1px solid #eee;
+    padding: 0 10px;
+}
+
+.bus-predictions {
+    float: right;
+}
+
+.bus-title {
+    font-size: 1.2em;
+    margin: 0;
+}
+
+.bus-prediction {
+    display: inline-block;
+    margin-left: .2em;
+
+    &:first-child {
+        font-weight: bold;
+    }
+}
