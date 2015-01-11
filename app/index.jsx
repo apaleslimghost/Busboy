@@ -10,10 +10,10 @@ var Stop   = require("./stop.jsx");
 var {BaconMixin} = require("react-bacon");
 
 function pollLocation() {
-  return Bacon.fromCallback(navigator.geolocation, "getCurrentPosition")
-    .concat(Bacon.interval(15000).flatMap(function() {
-      return Bacon.fromCallback(navigator.geolocation, "getCurrentPosition");
-    }));
+  return Bacon.fromCallback(
+    navigator.geolocation,
+    "watchPosition"
+  );
 }
 
 var Busboy = React.createClass({
