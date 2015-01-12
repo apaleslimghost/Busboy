@@ -15,7 +15,10 @@ function watchLocation() {
     "deviceready"
   ).take(1).concat(
     Bacon.fromBinder(function(sink) {
-      var i = navigator.geolocation.watchPosition(sink);
+      var i = navigator.geolocation.watchPosition(
+        sink,
+        (e) => sink(new Bacon.Error(e))
+      );
       return () => navigator.geolocation.clearWatch(i);
     })
   ).toProperty({});
@@ -40,9 +43,7 @@ var Busboy = React.createClass({
   componentWillMount() {
     var location = watchLocation();
     var repeatLocation = pollRepeatProperty(location, 15000);
-
-    this.plug(location, "location");
-    this.plug(repeatLocation.flatMap(function({coords}) {
+    var stops = repeatLocation.flatMap(function({coords}) {
       return coords ? busboy.around({
         lat: coords.latitude, lng: coords.longitude
       }, Math.min(Math.max(coords.accuracy, 200), 1000)) : Bacon.never();
@@ -50,9 +51,13 @@ var Busboy = React.createClass({
       if(stops.meta.loading) {
         return _.extend(this.state.stops, stops);
       }
-
       return stops;
-    }), "stops");
+    });
+
+    stops.onError((e) => console.log(e));
+
+    this.plug(location, "location");
+    this.plug(stops, "stops");
   },
 
   stops() {
