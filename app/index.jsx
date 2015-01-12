@@ -9,11 +9,22 @@ var Stop   = require("./stop.jsx");
 
 var {BaconMixin} = require("react-bacon");
 
-function pollLocation() {
-  return Bacon.fromCallback(
-    navigator.geolocation,
-    "watchPosition"
-  );
+function watchLocation() {
+  return Bacon.fromEventTarget(
+    document,
+    "deviceready"
+  ).take(1).concat(
+    Bacon.fromBinder(function(sink) {
+      var i = navigator.geolocation.watchPosition(sink);
+      return () => navigator.geolocation.clearWatch(i);
+    })
+  ).toProperty({});
+}
+
+function pollRepeatProperty(prop, interval) {
+  return Bacon.once().concat(
+    Bacon.interval(interval)
+  ).map(prop).merge(prop.changes());
 }
 
 var Busboy = React.createClass({
@@ -27,13 +38,14 @@ var Busboy = React.createClass({
   },
 
   componentWillMount() {
-    var location = pollLocation();
+    var location = watchLocation();
+    var repeatLocation = pollRepeatProperty(location, 15000);
 
     this.plug(location, "location");
-    this.plug(location.flatMap(function({coords}) {
-      return busboy.around({
+    this.plug(repeatLocation.flatMap(function({coords}) {
+      return coords ? busboy.around({
         lat: coords.latitude, lng: coords.longitude
-      }, Math.min(Math.max(coords.accuracy, 200), 1000));
+      }, Math.min(Math.max(coords.accuracy, 200), 1000)) : Bacon.never();
     }).map((stops) => {
       if(stops.meta.loading) {
         return _.extend(this.state.stops, stops);
