@@ -46,7 +46,7 @@ var Busboy = React.createClass({
     var stops = repeatLocation.flatMap(function({coords}) {
       return coords ? busboy.around({
         lat: coords.latitude, lng: coords.longitude
-      }, Math.min(Math.max(coords.accuracy, 200), 1000)) : Bacon.never();
+      }, Math.min(Math.max(coords.accuracy, 300), 1000)) : Bacon.never();
     }).map((stops) => {
       if(stops.meta.loading) {
         return _.extend(this.state.stops, stops);
@@ -79,8 +79,8 @@ var Busboy = React.createClass({
     return <main className="app">
       <nav className="toolbar">
         <h1 className="toolbar-title">BUSBOY</h1>
-      <span>{this.stops().map((stop, i) => <Tab key={stop.stopId} stop={stop} onClick={this.switchTab} active={this.state.currentStop === i}/>)}
-      {this.state.stops.meta.loading && <Icon id="notification_sync" className="pull-right"/>}</span>
+      <div className="toolbar-tabs">{this.stops().map((stop, i) => <Tab key={stop.stopId} stop={stop} onClick={this.switchTab} active={this.state.currentStop === i}/>)}
+      {this.state.stops.meta.loading && <Icon id="notification_sync" className="pull-right"/>}</div>
       </nav>
       {this.stops().length ? <Stop stop={this.stops()[this.state.currentStop]} location={this.state.location}/> : ""}
     </main>;

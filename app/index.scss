@@ -21,8 +21,32 @@ $bar-height: 44px;
     position: fixed;
     top: 0;
     width: 100%;
-    padding: 0 1em;
+    padding: 0 0 0 1em;
     background: #eee;
+}
+
+.toolbar-tabs {
+    overflow: auto;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch;
+    position: relative;
+
+    &:before, &:after {
+        display: block;
+        content: " ";
+        width: 10px;
+        position: fixed;
+        top: 0;
+        bottom: 0;
+    }
+    &:before {
+        left: 0;
+        background-image: linear-gradient(to right, #eee, rgba(#eee, 0));
+    }
+    &:after {
+        right: 0;
+        background-image: linear-gradient(to right, rgba(#eee, 0), #eee);
+    }
 }
 
 .toolbar,
@@ -52,6 +76,7 @@ $bar-height: 44px;
 }
 
 .toolbar-title {
+    float: left;
     padding-right: 1em;
     font-size: inherit;
     margin: 0;
