@@ -79,8 +79,12 @@ var Busboy = React.createClass({
     return <main className="app">
       <nav className="toolbar">
         <h1 className="toolbar-title">BUSBOY</h1>
-      <div className="toolbar-tabs">{this.stops().map((stop, i) => <Tab key={stop.stopId} stop={stop} onClick={this.switchTab} active={this.state.currentStop === i}/>)}
-      {this.state.stops.meta.loading && <Icon id="notification_sync" className="pull-right"/>}</div>
+        <div className="toolbar-tabs">
+          <div className="toolbar-tabs-scroll">
+            {this.stops().map((stop, i) => <Tab key={stop.stopId} stop={stop} onClick={this.switchTab} active={this.state.currentStop === i}/>)}
+          </div>
+        </div>
+        {this.state.stops.meta.loading && <Icon id="notification_sync" className="pull-right"/>}
       </nav>
       {this.stops().length ? <Stop stop={this.stops()[this.state.currentStop]} location={this.state.location}/> : ""}
     </main>;
