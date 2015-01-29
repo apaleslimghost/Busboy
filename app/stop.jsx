@@ -38,7 +38,7 @@ var Stop = React.createClass({
       <header className="stop-header" style={{backgroundImage: this.streetView()}}>
       <h1 className="stop-title"><span className="bus-emblem">{this.props.stop.stopPointIndicator}</span> {this.props.stop.stopPointName}</h1>
       <h2 className="stop-destination">Towards {this.props.stop.towards}</h2>
-      <h3 className="stop-distance">{this.distanceToStart()} miles</h3>
+      <h3 className="stop-distance">{this.distanceToStart()}mi</h3>
       </header>
       <ul className="bus-list">
       {_.chain(this.props.stop.predictions)

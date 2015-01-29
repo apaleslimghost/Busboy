@@ -103,27 +103,40 @@ $bar-height: 44px;
     margin: 9px;
 }
 
+$header1: 24px;
+$header2: 18px;
+$padding: $header1 / 2;
+$big-emblem: 36px;
+
 .stop-header {
     margin-top: $bar-height;
     height: 50vw;
+    padding: $padding;
     background-size: 100vw 50vw;
     color: white;
     background-color: #666;
     text-shadow: 0 1px 30px rgba(darken($buses-red, 20%), 0.4);
+    overflow: hidden; // prevent margin collapse
 }
 
 .stop-title {
-    font-size: 24px;
+    font-size: $header1;
     margin: 0;
-    padding: 0.5em;
 
     .bus-emblem {
-        width: 36px;
-        height: 36px;
-        line-height: 40px;
-        border-radius: 36px;
+        width: $big-emblem;
+        height: $big-emblem;
+        line-height: $big-emblem * 1.1111;
+        border-radius: $big-emblem;
         margin: 0;
     }
+}
+
+.stop-destination {
+    font-size: $header2;
+    font-weight: 300;
+    margin: 0;
+    padding-left: $big-emblem + 5px;
 }
 
 .bus-list, .bus-predictions {
@@ -157,3 +170,4 @@ $bar-height: 44px;
         font-weight: bold;
     }
 }
+
