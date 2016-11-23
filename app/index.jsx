@@ -7,6 +7,13 @@ import latLon from './latlon.js';
 import Tab from './tab.jsx';
 import Stop from './stop.jsx';
 
+Object.assign(busboy.defaultOptions, {
+	protocol: location.protocol,
+	hostname: location.hostname,
+	port: location.port,
+	path: '/_api/interfaces/ura/instant_V1'
+});
+
 const watchLocation = () =>
 	Bacon.fromBinder(function(sink) {
 		navigator.geolocation.getCurrentPosition(
