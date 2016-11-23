@@ -2,6 +2,10 @@
   "name": "Busboy",
   "version": "1.0.0",
   "description": "TfL live bus times app",
+  "scripts": {
+    "analyse": "browserify --node -p discify app/index.jsx > /dev/null",
+    "postanalyse": "open disc/map.html"
+  },
   "browserify": {
     "transform": [
       "babelify",
@@ -44,6 +48,8 @@
     "browserify": "^13.1.1",
     "cordova": "^4.1.2",
     "cssify": "^0.6.0",
+    "disc": "^1.3.2",
+    "discify": "^1.4.2",
     "ios-deploy": "^1.3.2",
     "ios-sim": "^3.1.1",
     "reactify": "^0.17.1",
@@ -55,8 +61,6 @@
     "browserify-middleware": "^7.1.0",
     "classnames": "^2.2.5",
     "express": "^4.14.0",
-    "material-design-fonticons": "^1.0.0",
-    "moment": "^2.8.4",
     "morgan": "^1.7.0",
     "mt-latlon": "0.0.3",
     "preact": "^6.4.0",

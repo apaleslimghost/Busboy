@@ -1,12 +1,18 @@
 const {h} = require('preact');
-const moment = require('moment');
 const _ = require('underscore');
 
+const minuteDiff = (a, b) => Math.round((a.getTime() - b.getTime()) / 1000 / 60);
+const hh = date => (date.getHours() % 12) || 12;
+const mm = date => (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
+const hmm = date => `${hh(date)}:${mm(date)}`
+
+
 function formatETA(t) {
-	const min = t.diff(moment(), 'minutes');
+	const min = minuteDiff(t, new Date());
+	console.log(min);
 
 	if(min < 0) {
-		return `Due ${t.format('h:mm')}`;
+		return `Due ${hmm(t)}`;
 	}
 
 	if(min < 1) {
@@ -20,7 +26,7 @@ const Bus = ({name, predictions}) => <li className='bus-list-item'>
 	<ul className='bus-predictions'>
 		{predictions.map((prediction) =>
 			<li className='bus-prediction' key={prediction.tripId}>
-				{formatETA(moment(prediction.estimatedTime))}
+				{formatETA(prediction.estimatedTime)}
 			</li>
 		)}
 	</ul>

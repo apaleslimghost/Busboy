@@ -6,7 +6,6 @@ const c = require('classnames');
 
 const latLon = require('./latlon.js');
 const Tab = require('./tab.jsx');
-const Icon = require('./icon.jsx');
 const Stop = require('./stop.jsx');
 
 const watchLocation = () =>
@@ -108,7 +107,6 @@ class Busboy extends Component {
 						{this.stops().map((stop, i) => <Tab key={stop.stopId} stop={stop} onClick={this.switchTab} active={this.state.currentStop === i}/>)}
 					</div>
 				</div>
-				{this.state.stops.meta.loading && <Icon id='notification_sync' className='pull-right'/>}
 			</nav>
 			{this.state.error &&
 				<div className='error-banner'>{this.state.error.message}</div>
@@ -122,4 +120,3 @@ class Busboy extends Component {
 
 render(<Busboy/>, document.querySelector('main'));
 require('./index.scss');
-require('../node_modules/material-design-fonticons/styles/mdfi.css');
