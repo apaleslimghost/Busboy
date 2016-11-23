@@ -12,6 +12,18 @@ body {
 	margin: 0;
 }
 
+a {
+	color: $location-blue;
+	text-decoration: none;
+	font-weight: bold;
+
+	&:hover, &:active, &:focus {
+		color: darken($location-blue, 10%);
+		border-bottom-style: dotted;
+		border-bottom-width: 1px;
+	}
+}
+
 .app-footer {
 	position: fixed;
 	bottom: 0;
@@ -236,28 +248,52 @@ $big-emblem: 36px;
 	color: rgba(black, 0.5);
 }
 
-.bus-list, .bus-predictions {
+.bus-list, .bus-predictions, .message-list {
 	list-style: none;
 	padding: 0;
 	margin: 0;
 	overflow: hidden;
 }
 
-.bus-list-item {
-	line-height: $bar-height;
+.message-list-item, .bus-list-item {
+	padding: 1em .8em;
 	border-bottom: 1px solid #eee;
-	padding: 0 10px;
+	display: flex;
+	align-items: center;
 }
 
-.bus-predictions {
-	float: right;
+.message-emergency {
+	background: rgba($buses-red, .2);
+	font-weight: bold;
+
+	.message-text {
+		color: #300;
+	}
 }
 
-.bus-title {
+.message-high-severity {
+	background: rgba(#ea2, .2);
+
+	.message-text {
+		color: #310;
+	}
+}
+
+.message-text {
+	font-size: .8em;
+	color: rgba(black, 0.5);
+}
+
+.message-priority-label, .bus-title {
+	text-align: center;
 	display: inline-block;
 	font-size: 1.2em;
 	margin: 0 1em 0 0;
 	width: 2em;
+}
+
+.bus-destination, .message-text {
+	flex: 1;
 }
 
 .bus-prediction {

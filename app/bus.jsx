@@ -18,6 +18,8 @@ function formatETA(t) {
 }
 
 const Bus = ({name, predictions}) => <li className='bus-list-item'>
+	<h3 className='bus-title'>{name}</h3>
+	<span className='bus-destination'>{predictions[0].destinationName}</span>
 	<ul className='bus-predictions'>
 		{predictions.map((prediction) =>
 			<li className='bus-prediction' key={prediction.tripId}>
@@ -25,8 +27,6 @@ const Bus = ({name, predictions}) => <li className='bus-list-item'>
 			</li>
 		)}
 	</ul>
-	<h3 className='bus-title'>{name}</h3>
-	<span className='bus-destination'>{predictions[0].destinationName}</span>
 </li>;
 
 module.exports = Bus;

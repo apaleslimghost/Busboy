@@ -1,6 +1,7 @@
 import {h} from 'preact';
 import url from 'url';
 import Bus from './bus.jsx';
+import Message from './message.jsx';
 import latLon from './latlon.js';
 
 const getStreetViewUrl = ({latitude, longitude, bearing}, {width}) => url.format({
@@ -35,6 +36,15 @@ const gradient = img => `linear-gradient(to bottom, rgba(220,36,31,0.1), rgba(22
 
 const get = obj => key => obj[key];
 const values = obj => Object.keys(obj).map(get(obj));
+const uniqBy = key => arr => arr.reduce(
+	({uniqs, result}, item) => {
+		if(!uniqs.has(item[key])) {
+			result.push(item);
+			uniqs.add(item[key]);
+		}
+		return {result, uniqs};
+	}, {result: [], uniqs: new Set()}
+).result;
 
 const collatePredictions = predictions => values(predictions)
 .sort((a, b) => a.estimatedTime - b.estimatedTime)
@@ -62,6 +72,16 @@ const Stop = ({stop, location}) => <div className='stop'>
 {stop.predictions ? <ul className='bus-list'>
 	{renderPredictions(collatePredictions(stop.predictions))}
 </ul> : <div className='bus-list-item stop-empty'>Nothing for the next 30 minutes</div>}
+
+{stop.messages && <ul className='message-list'>
+	{
+		uniqBy('messageText')(values(stop.messages))
+		.filter(({expireTime}) => expireTime >= new Date())
+		.sort((a, b) => a.messagePriority - b.messagePriority)
+		.map(message => <Message key={message.messageUUID} {...message} />)
+	}
+</ul>}
+
 </div>;
 
 module.exports = Stop;
