@@ -223,3 +223,15 @@ $big-emblem: 36px;
         font-weight: bold;
     }
 }
+
+.error-banner {
+  position: fixed;
+  top: $bar-height;
+  left: 0;
+  right: 0;
+  padding: .5em;
+  text-align: center;
+  font-weight: bold;
+  color: white;
+  background: rgba(black, .8);
+}

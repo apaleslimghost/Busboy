@@ -44,8 +44,9 @@ class Busboy extends React.Component {
 
 	componentWillMount() {
 		const location = watchLocation();
-		const repeatLocation = pollRepeatProperty(location, 15000);
-		const stops = repeatLocation.flatMap(function({coords, located}) {
+		const stops = pollRepeatProperty(location, 15000)
+		.skipErrors()
+		.flatMap(function({coords, located}) {
 			return coords ? busboy.around({
 				lat: coords.latitude, lng: coords.longitude
 			}, Math.min(Math.max(coords.accuracy, 300), 1000)) : Bacon.never();
@@ -68,9 +69,16 @@ class Busboy extends React.Component {
 
 	plug(observable, prop) {
 		observable.onValue(v => {
-			this.setState({
-				[prop]: v
-			});
+			this.state[prop] = v;
+			if(this.state.error && this.state.error.from === prop) {
+				this.state.error = false;
+			}
+			this.setState(this.state);
+		});
+
+		observable.onError(error => {
+			error.from = prop;
+			this.setState({error});
 		});
 	}
 
@@ -100,6 +108,9 @@ class Busboy extends React.Component {
 				</div>
 				{this.state.stops.meta.loading && <Icon id='notification_sync' className='pull-right'/>}
 			</nav>
+			{this.state.error &&
+				<div className='error-banner'>{this.state.error.message}</div>
+			}
 			{!!this.stops().length &&
 				<Stop stop={this.stops()[this.state.currentStop]} location={this.state.location}/>
 			}
