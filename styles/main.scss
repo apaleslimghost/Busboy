@@ -1,5 +1,3 @@
-@import "fonts";
-
 $buses-red: #dc241f;
 $location-blue: #3355ff;
 
@@ -8,7 +6,10 @@ $location-blue: #3355ff;
 }
 
 body {
-	font-family: Aileron, sans-serif;
+	font-family: -apple-system, BlinkMacSystemFont,
+		"Segoe UI", "Roboto", "Oxygen",
+		"Ubuntu", "Cantarell", "Fira Sans",
+		"Droid Sans", "Helvetica Neue", sans-serif;
 	margin: 0;
 }
 
