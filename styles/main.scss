@@ -12,6 +12,17 @@ body {
 	margin: 0;
 }
 
+.app-footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	font-size: .7em;
+	color: rgba(black, .5);
+	padding: .5em;
+	text-align: center;
+}
+
 .pull-right {
 	float: right;
 }
@@ -218,6 +229,11 @@ $big-emblem: 36px;
 .stop-distance {
 	float: right;
 	font-variant: small-caps;
+}
+
+.stop-empty {
+	font-style: italic;
+	color: rgba(black, 0.5);
 }
 
 .bus-list, .bus-predictions {

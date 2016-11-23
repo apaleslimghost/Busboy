@@ -144,6 +144,9 @@ class Busboy extends Component {
 			{!!this.stops().length &&
 				<Stop stop={this.stops()[this.state.currentStop]} location={this.state.location}/>
 			}
+			<footer className='app-footer'>
+				Busboy
+			</footer>
 		</div>;
 	}
 }

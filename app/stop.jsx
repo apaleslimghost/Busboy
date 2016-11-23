@@ -59,9 +59,9 @@ const Stop = ({stop, location}) => <div className='stop'>
 		<h2 className='stop-destination'>Towards {stop.towards}</h2>
 	</div>
 </header>
-<ul className='bus-list'>
+{stop.predictions ? <ul className='bus-list'>
 	{renderPredictions(collatePredictions(stop.predictions))}
-	</ul>
+</ul> : <div className='bus-list-item stop-empty'>Nothing for the next 30 minutes</div>}
 </div>;
 
 module.exports = Stop;
