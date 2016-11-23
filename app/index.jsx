@@ -71,8 +71,8 @@ class Busboy extends React.Component {
 	stops() {
 		return _.chain(this.state.stops)
 		.reject((v, k) => k === 'meta')
-		.sortBy((stop) => latLon(this.state.location).distanceTo(
-			latLon({coords: stop})
+		.sortBy((stop) => latLon(this.state.location.coords).distanceTo(
+			latLon(stop)
 		))
 		.value();
 	}
