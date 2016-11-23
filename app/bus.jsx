@@ -2,8 +2,17 @@ const React = require('react');
 const moment = require('moment');
 
 function formatETA(t) {
-	var min = t.diff(moment(), 'minutes');
-	return min < 1 ? `Due ${t.format('h:mm')}`  : min + 'm';
+	const min = t.diff(moment(), 'minutes');
+
+	if(min < 0) {
+		return `Due ${t.format('h:mm')}`;
+	}
+
+	if(min < 1) {
+		return 'Due';
+	}
+
+	return `${min}m`;
 }
 
 const Bus = ({name, predictions}) => <li className='bus-list-item'>
