@@ -1,12 +1,11 @@
-const {h, Component, render} = require('preact');
-const _ = require('underscore');
-const Bacon = require('baconjs');
-const busboy = require('tfl-busboy');
-const c = require('classnames');
+import {h, Component, render} from 'preact';
+import Bacon from 'baconjs';
+import busboy from 'tfl-busboy';
+import c from 'classnames';
 
-const latLon = require('./latlon.js');
-const Tab = require('./tab.jsx');
-const Stop = require('./stop.jsx');
+import latLon from './latlon.js';
+import Tab from './tab.jsx';
+import Stop from './stop.jsx';
 
 const watchLocation = () =>
 	Bacon.fromBinder(function(sink) {
@@ -53,7 +52,7 @@ class Busboy extends Component {
 			}, Math.min(Math.max(coords.accuracy, 300), 1000)) : Bacon.never();
 		}).map((stops) => {
 			if(stops.meta.loading) {
-				return _.extend(this.state.stops, stops);
+				return Object.assign(this.state.stops, stops);
 			}
 			return stops;
 		});
@@ -84,12 +83,15 @@ class Busboy extends Component {
 	}
 
 	stops() {
-		return _.chain(this.state.stops)
-		.reject((v, k) => k === 'meta')
-		.sortBy((stop) => latLon(this.state.location.coords).distanceTo(
-			latLon(stop)
-		))
-		.value();
+		return Object.keys(this.state.stops)
+		.filter(key => key !== 'meta')
+		.map(key => {
+			const stop = this.state.stops[key];
+			const distance = latLon(this.state.location.coords)
+				.distanceTo(latLon(stop));
+			return Object.assign({distance}, stop);
+		})
+		.sort((a, b) => a.distance - b.distance);
 	}
 
 	switchTab(e) {

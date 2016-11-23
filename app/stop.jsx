@@ -1,8 +1,7 @@
-const {h} = require('preact');
-const _ = require('underscore');
-const url = require('url');
-const Bus = require('./bus.jsx');
-const latLon = require('./latlon.js');
+import {h} from 'preact';
+import url from 'url';
+import Bus from './bus.jsx';
+import latLon from './latlon.js';
 
 const getStreetViewUrl = ({latitude, longitude, bearing}, {width}) => url.format({
 	protocol: 'https',
@@ -34,6 +33,24 @@ const distanceToStart = ({stop, location}) =>
 
 const gradient = img => `linear-gradient(to bottom, rgba(220,36,31,0.1), rgba(220,36,31,0.1), rgba(220,36,31,0.3)), url(${img})`;
 
+const get = obj => key => obj[key];
+const values = obj => Object.keys(obj).map(get(obj));
+
+const collatePredictions = predictions => values(predictions)
+.sort((a, b) => a.estimatedTime - b.estimatedTime)
+.reduce(
+	(groups, prediction) =>
+		Object.assign(groups, {
+			[prediction.lineName]: (groups[prediction.lineName] || []).concat(
+				prediction
+			)
+		}),
+	{}
+);
+
+const renderPredictions = lines => Object.keys(lines)
+	.map(line => <Bus name={line} key={line} predictions={lines[line]} />);
+
 const Stop = ({stop, location}) => <div className='stop'>
 <header className='stop-header' style={{backgroundImage: gradient(getStreetViewUrl(stop, {width: window.innerWidth}))}}>
 	<div className='stop-header-contents'>
@@ -43,13 +60,7 @@ const Stop = ({stop, location}) => <div className='stop'>
 	</div>
 </header>
 <ul className='bus-list'>
-	{_.chain(stop.predictions)
-		.sortBy('estimatedTime')
-		.groupBy('lineName')
-		.pairs()
-		.sortBy((p) => p[1][0].estimatedTime)
-		.map((p) => <Bus name={p[0]} key={p[0]} predictions={p[1]} /> )
-		.value()}
+	{renderPredictions(collatePredictions(stop.predictions))}
 	</ul>
 </div>;
 

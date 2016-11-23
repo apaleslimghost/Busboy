@@ -1,5 +1,5 @@
-const {h} = require('preact');
-const c = require('classnames');
+import {h} from 'preact';
+import c from 'classnames';
 
 const Tab = ({active, stop, onClick}) => <a
 	className={c('toolbar-tab', {'toolbar-tab-active': active})}

@@ -1,5 +1,4 @@
-const {h} = require('preact');
-const _ = require('underscore');
+import {h} from 'preact';
 
 const minuteDiff = (a, b) => Math.round((a.getTime() - b.getTime()) / 1000 / 60);
 const hh = date => (date.getHours() % 12) || 12;
