@@ -1,9 +1,6 @@
-var React = require("react");
+const React = require('react');
+const c = require('classnames');
 
-var Icon = React.createClass({
-  render() {
-    return <i className={"mdfi_" + this.props.id + " " + this.props.className}/>;
-  }
-});
+const Icon = ({id, className}) => <i className={c(`mdfi_${id}`, className)}/>;
 
 module.exports = Icon;

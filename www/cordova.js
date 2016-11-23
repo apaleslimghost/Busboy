@@ -1,5 +1,3 @@
 setTimeout(function() {
-	var ev = document.createEvent("Event");
-	ev.initEvent("deviceready");
-	document.dispatchEvent(ev);
+	document.dispatchEvent(new CustomEvent('deviceready'));
 }, 1000);

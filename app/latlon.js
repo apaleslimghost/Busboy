@@ -1,5 +1,5 @@
-var LatLon = require("mt-latlon");
+var LatLon = require('mt-latlon');
 
-module.exports = function geoToLatlon({coords}) {
-  return new LatLon(coords.latitude, coords.longitude);
+module.exports = function geoToLatlon({latitude, longitude}) {
+  return new LatLon(latitude, longitude);
 };

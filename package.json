@@ -11,14 +11,15 @@
   },
   "browserify": {
     "transform": [
-      [
-        "reactify",
-        {
-          "es6": true
-        }
-      ],
+      "babelify",
       "sassify",
       "cssify"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react"
     ]
   },
   "repository": {
@@ -36,25 +37,28 @@
   },
   "homepage": "https://github.com/quarterto/Busboy",
   "devDependencies": {
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babelify": "^7.3.0",
     "browser-sync": "^1.8.3",
-    "browserify": "^8.0.2",
+    "browserify": "^13.1.1",
     "cordova": "^4.1.2",
     "cssify": "^0.6.0",
     "ios-deploy": "^1.3.2",
     "ios-sim": "^3.1.1",
     "reactify": "^0.17.1",
     "sassify": "^0.5.2",
-    "watchify": "^2.2.1"
+    "watchify": "^3.7.0"
   },
   "dependencies": {
     "baconjs": "^0.7.41",
+    "classnames": "^2.2.5",
     "material-design-fonticons": "^1.0.0",
     "moment": "^2.8.4",
     "mt-latlon": "0.0.3",
-    "react": "^0.12.2",
-    "react-bacon": "0.0.4",
-    "react-tap-event-plugin": "^0.1.3",
-    "tfl-busboy": "^1.0.4",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "tfl-busboy": "^1.1.1",
     "underscore": "^1.7.0"
   }
 }
