@@ -3,7 +3,7 @@ const moment = require('moment');
 
 function formatETA(t) {
 	var min = t.diff(moment(), 'minutes');
-	return min < 1 ? 'Due' : min + 'm';
+	return min < 1 ? `Due ${t.format('h:mm')}`  : min + 'm';
 }
 
 const Bus = ({name, predictions}) => <li className='bus-list-item'>
