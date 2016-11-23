@@ -1,10 +1,7 @@
 import {h} from 'preact';
+import hmm from './hmm';
 
 const minuteDiff = (a, b) => Math.round((a.getTime() - b.getTime()) / 1000 / 60);
-const hh = date => (date.getHours() % 12) || 12;
-const mm = date => (date.getMinutes() < 10 ? '0' : '') + date.getMinutes();
-const hmm = date => `${hh(date)}:${mm(date)}`
-
 
 function formatETA(t) {
 	const min = minuteDiff(t, new Date());

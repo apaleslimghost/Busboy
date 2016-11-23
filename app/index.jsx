@@ -6,6 +6,7 @@ import c from 'classnames';
 import latLon from './latlon.js';
 import Tab from './tab.jsx';
 import Stop from './stop.jsx';
+import hmm from './hmm';
 
 Object.assign(busboy.defaultOptions, {
 	protocol: location.protocol,
@@ -46,7 +47,7 @@ const networkError = observable => observable.flatMap(online => {
 		return true;
 	}
 
-	return new Bacon.Error(new Error('No internet connection'));
+	return new Bacon.Error(new Error(`No internet connection. Last online ${hmm(new Date())}`));
 });
 
 class Busboy extends Component {
@@ -65,7 +66,7 @@ class Busboy extends Component {
 	componentWillMount() {
 		const location = watchLocation();
 		const onlineObservable = watchOnline();
-		const stops = pollRepeatProperty(location, 15000)
+		const rawStops = pollRepeatProperty(location, 30000)
 		.skipErrors()
 		.flatMap(({coords, located}) =>
 			onlineObservable.flatMap(online =>
@@ -80,7 +81,9 @@ class Busboy extends Component {
 			stops.meta.loading ?
 				Object.assign(this.state.stops, stops)
 				: stops
-		);
+		).toProperty({meta: {loading: true}});
+
+		const stops = pollRepeatProperty(rawStops, 5000);
 
 		location.onError(e => {
 			this.state.location.located = false;
