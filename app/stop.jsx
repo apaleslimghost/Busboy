@@ -36,9 +36,11 @@ const gradient = img => `linear-gradient(to bottom, rgba(220,36,31,0.1), rgba(22
 
 const Stop = ({stop, location}) => <div className='stop'>
 <header className='stop-header' style={{backgroundImage: gradient(getStreetViewUrl(stop, {width: window.innerWidth}))}}>
-	<h1 className='stop-title'><span className='bus-emblem'>{stop.stopPointIndicator}</span> {stop.stopPointName}</h1>
-	<h2 className='stop-destination'>Towards {stop.towards}</h2>
-	<h3 className='stop-distance'>{distanceToStart({stop, location})}mi</h3>
+	<div className='stop-header-contents'>
+		<h3 className='stop-distance'>{distanceToStart({stop, location})}mi</h3>
+		<h1 className='stop-title'><span className='bus-emblem'>{stop.stopPointIndicator}</span> {stop.stopPointName}</h1>
+		<h2 className='stop-destination'>Towards {stop.towards}</h2>
+	</div>
 </header>
 <ul className='bus-list'>
 	{_.chain(stop.predictions)
