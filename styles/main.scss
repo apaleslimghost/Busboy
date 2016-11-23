@@ -25,6 +25,45 @@ a {
 	}
 }
 
+@keyframes busboy-loading-spinner {
+	0%   { transform: rotate(0); }
+	100% { transform: rotate(359.9deg); }
+}
+
+.loading-container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 300px;
+	width: 100%;
+}
+
+.loading-float {
+	position: fixed;
+	top: 0;
+	right: 0;
+	padding: 14px;
+}
+
+.loading {
+	will-change: transform;
+	width: 16px;
+	height: 16px;
+	border-radius: 16px;
+	border-width: 1.5px;
+	font-size: 0;
+	border-style: solid;
+	border-color: #ddd #ddd #ddd $location-blue;
+	animation: busboy-loading-spinner 2s linear infinite;
+}
+
+.loading-large {
+	width: 50px;
+	height: 50px;
+	border-radius: 50px;
+	border-width: 2px;
+}
+
 .app-footer {
 	position: fixed;
 	bottom: 0;

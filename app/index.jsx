@@ -144,6 +144,15 @@ class Busboy extends Component {
 			{!!this.stops().length &&
 				<Stop stop={this.stops()[this.state.currentStop]} location={this.state.location}/>
 			}
+
+			{this.state.stops.meta.loading &&
+				<div class={this.stops().length ? 'loading-float' : 'loading-container'}>
+					<div class={c('loading', {'loading-large': !this.stops().length})}>
+						Loading
+					</div>
+				</div>
+			}
+
 			{false && <footer className='app-footer'>
 				Busboy
 			</footer>}
