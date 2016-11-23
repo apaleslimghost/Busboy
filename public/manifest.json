@@ -1,0 +1,15 @@
+{
+	"background_color": "#ffffff",
+	"theme_color": "#dc241f",
+	"name": "Busboy",
+	"start_url": "/",
+	"short_name": "Busboy",
+	"display": "standalone",
+	"icons": [
+		{
+			"src": "/images/logo.png",
+			"sizes": "1024x1024",
+			"type": "image/png"
+		}
+	]
+}
