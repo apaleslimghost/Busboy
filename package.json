@@ -2,13 +2,6 @@
   "name": "Busboy",
   "version": "1.0.0",
   "description": "TfL live bus times app",
-  "main": "index.js",
-  "scripts": {
-    "cordova": "cordova",
-    "build": "browserify  app/index.jsx -o www/js/index.js",
-    "watch": "watchify -d app/index.jsx -o www/js/index.js",
-    "serve": "cd www; browser-sync start --open --server --files=\"**/*\""
-  },
   "browserify": {
     "transform": [
       "babelify",
@@ -52,13 +45,17 @@
   },
   "dependencies": {
     "baconjs": "^0.7.41",
+    "browserify-middleware": "^7.1.0",
     "classnames": "^2.2.5",
+    "express": "^4.14.0",
     "material-design-fonticons": "^1.0.0",
     "moment": "^2.8.4",
+    "morgan": "^1.7.0",
     "mt-latlon": "0.0.3",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
-    "tfl-busboy": "^1.1.1",
+    "serve-favicon": "^2.3.2",
+    "tfl-busboy": "^1.1.3",
     "underscore": "^1.7.0"
   }
 }

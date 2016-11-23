@@ -10,19 +10,22 @@ const Tab = require('./tab.jsx');
 const Icon = require('./icon.jsx');
 const Stop = require('./stop.jsx');
 
-
 const watchLocation = () =>
-Bacon.fromEventTarget(document, 'deviceready')
-.first()
-.concat(
 	Bacon.fromBinder(function(sink) {
-		const i = navigator.geolocation.watchPosition(
+		navigator.geolocation.getCurrentPosition(
 			location => sink(Object.assign(location, {located: true})),
 			error => sink(new Bacon.Error(error))
 		);
-		return () => navigator.geolocation.clearWatch(i);
 	})
-).toProperty({located: false});
+	.concat(
+		Bacon.fromBinder(function(sink) {
+			const i = navigator.geolocation.watchPosition(
+				location => sink(Object.assign(location, {located: true})),
+				error => sink(new Bacon.Error(error))
+			);
+			return () => navigator.geolocation.clearWatch(i);
+		})
+	).toProperty({located: false});
 
 const pollRepeatProperty = (prop, interval) =>
 	Bacon.once().concat(
@@ -98,7 +101,7 @@ class Busboy extends React.Component {
 	}
 
 	render() {
-		return <main className={c('app', {'location-found': this.state.location.located})}>
+		return <div className={c('app', {'location-found': this.state.location.located})}>
 			<nav className='toolbar'>
 				<h1 className='toolbar-title'>Busboy</h1>
 				<div className='toolbar-tabs'>
@@ -114,10 +117,10 @@ class Busboy extends React.Component {
 			{!!this.stops().length &&
 				<Stop stop={this.stops()[this.state.currentStop]} location={this.state.location}/>
 			}
-		</main>;
+		</div>;
 	}
 }
 
-ReactDom.render(<Busboy/>, document.body);
+ReactDom.render(<Busboy/>, document.querySelector('main'));
 require('./index.scss');
 require('../node_modules/material-design-fonticons/styles/mdfi.css');
