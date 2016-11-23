@@ -138,7 +138,7 @@ $bar-height: 44px;
   &:after {
     transform-origin: center;
     animation: busboy-location-ping 1.5s infinite;
-    transition-property: border background;
+    transition-property: border background transform;
     transition-duration: 0.2s;
   }
 
@@ -148,13 +148,12 @@ $bar-height: 44px;
     }
 
     &:after {
-      background: none;
-      border: 1.5px solid #3355ff;
+      background: transparent;
+      border: 1.5px solid $location-blue;
       width: 11px;
       height: 11px;
       border-radius: 7px;
-      margin-top: -3px;
-      margin-right: -3px;
+      transform: translate(3px, -3px);
     }
   }
 }
