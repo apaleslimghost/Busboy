@@ -36,6 +36,19 @@ const pollRepeatProperty = (prop, interval) =>
 		Bacon.interval(interval)
 	).map(prop).merge(prop.changes());
 
+const watchOnline = () => Bacon.fromEvent(window, 'online')
+.merge(Bacon.fromEvent(window, 'offline'))
+.map(() => navigator.onLine)
+.toProperty(navigator.onLine);
+
+const networkError = observable => observable.flatMap(online => {
+	if(online) {
+		return true;
+	}
+
+	return new Bacon.Error(new Error('No internet connection'));
+});
+
 class Busboy extends Component {
 	constructor(props) {
 		super(props);
@@ -51,20 +64,24 @@ class Busboy extends Component {
 
 	componentWillMount() {
 		const location = watchLocation();
+		const onlineObservable = watchOnline();
 		const stops = pollRepeatProperty(location, 15000)
 		.skipErrors()
-		.flatMap(function({coords, located}) {
-			return coords ? busboy.around({
-				lat: coords.latitude, lng: coords.longitude
-			}, Math.min(Math.max(coords.accuracy, 300), 1000)) : Bacon.never();
-		}).map((stops) => {
-			if(stops.meta.loading) {
-				return Object.assign(this.state.stops, stops);
-			}
-			return stops;
-		});
+		.flatMap(({coords, located}) =>
+			onlineObservable.flatMap(online =>
+				coords && online ?
+					busboy.around({
+						lat: coords.latitude, lng: coords.longitude
+					}, Math.min(Math.max(coords.accuracy, 300), 1000))
+					: Bacon.never()
+			)
+		)
+		.map(stops =>
+			stops.meta.loading ?
+				Object.assign(this.state.stops, stops)
+				: stops
+		);
 
-		stops.onError(e => console.log(e));
 		location.onError(e => {
 			this.state.location.located = false;
 			this.setState(this.state);
@@ -72,6 +89,7 @@ class Busboy extends Component {
 
 		this.plug(location, 'location');
 		this.plug(stops, 'stops');
+		this.plug(networkError(onlineObservable), 'online');
 	}
 
 	plug(observable, prop) {
