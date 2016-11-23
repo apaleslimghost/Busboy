@@ -4,172 +4,172 @@ $buses-red: #dc241f;
 $location-blue: #3355ff;
 
 * {
-    box-sizing: border-box;
+	box-sizing: border-box;
 }
 
 body {
-    font-family: Aileron, sans-serif;
-    margin: 0;
+	font-family: Aileron, sans-serif;
+	margin: 0;
 }
 
 .pull-right {
-    float: right;
+	float: right;
 }
 
 $bar-height: 44px;
 
 .toolbar {
-    position: fixed;
-    top: 0;
-    width: 100%;
-    padding: 0 0 0 1em;
-    background: #eee;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	padding: 0 0 0 1em;
+	background: #eee;
 }
 
 .toolbar-tabs-scroll {
-    overflow: auto;
-    white-space: nowrap;
-    -webkit-overflow-scrolling: touch;
+	overflow: auto;
+	white-space: nowrap;
+	-webkit-overflow-scrolling: touch;
 }
 
 .toolbar-tabs {
-    position: relative;
-    overflow: hidden;
+	position: relative;
+	overflow: hidden;
 
-    &:before, &:after {
-        display: block;
-        content: " ";
-        width: 10px;
-        position: absolute;
-        top: 0;
-        bottom: 0;
-    }
-    &:before {
-        left: 0;
-        background-image: linear-gradient(to right, #eee, rgba(#eee, 0));
-    }
-    &:after {
-        right: 0;
-        background-image: linear-gradient(to right, rgba(#eee, 0), #eee);
-    }
+	&:before, &:after {
+		display: block;
+		content: " ";
+		width: 10px;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+	}
+	&:before {
+		left: 0;
+		background-image: linear-gradient(to right, #eee, rgba(#eee, 0));
+	}
+	&:after {
+		right: 0;
+		background-image: linear-gradient(to right, rgba(#eee, 0), #eee);
+	}
 }
 
 .toolbar,
 .toolbar-tab,
 .toolbar-title {
-    height: $bar-height;
-    line-height: $bar-height;
+	height: $bar-height;
+	line-height: $bar-height;
 }
 
 .toolbar-tab,
 .toolbar-title {
-    display: inline-block;
-    vertical-align: top;
+	display: inline-block;
+	vertical-align: top;
 }
 
 .toolbar-tab {
-    color: inherit;
-    text-decoration: none;
+	color: inherit;
+	text-decoration: none;
 
-    &:first-child {
-        margin-left: 10px;
-    }
+	&:first-child {
+		margin-left: 10px;
+	}
 
-    &:hover, &:active {
-        background: #f5f5f5;
-    }
+	&:hover, &:active {
+		background: #f5f5f5;
+	}
 }
 
 .toolbar-tab-active {
-    border-bottom: 3px solid $buses-red;
+	border-bottom: 3px solid $buses-red;
 }
 
 @keyframes busboy-location-ping {
-  0% {
-    transform: scale(1);
-    opacity: 0.9;
-  }
+	0% {
+		transform: scale(1);
+		opacity: 0.9;
+	}
 
-  100% {
-    transform: scale(2);
-    opacity: 0;
-  }
+	100% {
+		transform: scale(2);
+		opacity: 0;
+	}
 }
 
 @keyframes busboy-location-fade {
-  0% {
-    opacity: 0.9;
-  }
+	0% {
+		opacity: 0.9;
+	}
 
-  50% {
-    opacity: 0.9;
-  }
+	50% {
+		opacity: 0.9;
+	}
 
-  100% {
-    opacity: 0;
-  }
+	100% {
+		opacity: 0;
+	}
 }
 
 
 .toolbar-title {
-  float: left;
-  padding-right: 1em;
-  font-size: inherit;
-  margin: 0;
-  text-transform: uppercase;
+	float: left;
+	padding-right: 1em;
+	font-size: inherit;
+	margin: 0;
+	text-transform: uppercase;
 
-  position: relative;
+	position: relative;
 
-  &:before, &:after {
-    will-change: transform, opacity;
-    content: '';
-    display: block;
-    background: $location-blue;
-    width: 8px;
-    height: 8px;
-    border-radius: 4px;
-    position: absolute;
-    right: calc(1em - 5px);
-    top: calc(1em - 5px);
-    opacity: 0.9;
-  }
+	&:before, &:after {
+		will-change: transform, opacity;
+		content: '';
+		display: block;
+		background: $location-blue;
+		width: 8px;
+		height: 8px;
+		border-radius: 4px;
+		position: absolute;
+		right: calc(1em - 5px);
+		top: calc(1em - 5px);
+		opacity: 0.9;
+	}
 
 
-  &:after {
-    transform-origin: center;
-    animation: busboy-location-ping 1.5s infinite;
-    transition-property: border background transform;
-    transition-duration: 0.2s;
-  }
+	&:after {
+		transform-origin: center;
+		animation: busboy-location-ping 1.5s infinite;
+		transition-property: border background transform;
+		transition-duration: 0.2s;
+	}
 
-  .location-found & {
-    &:after, &:before {
-      animation: busboy-location-fade 10s forwards;
-    }
+	.location-found & {
+		&:after, &:before {
+			animation: busboy-location-fade 10s forwards;
+		}
 
-    &:after {
-      background: transparent;
-      border: 1.5px solid $location-blue;
-      width: 11px;
-      height: 11px;
-      border-radius: 7px;
-      transform: translate(3px, -3px);
-    }
-  }
+		&:after {
+			background: transparent;
+			border: 1.5px solid $location-blue;
+			width: 11px;
+			height: 11px;
+			border-radius: 7px;
+			transform: translate(3px, -3px);
+		}
+	}
 }
 
 .bus-emblem {
-    display: inline-block;
-    text-align: center;
-    width: 26px;
-    height: 26px;
-    line-height: 26px;
-    border-radius: 26px;
-    background: $buses-red;
-    color: white;
-    font-weight: normal;
-    margin: 9px;
-    font-family: "Gill Sans";
+	display: inline-block;
+	text-align: center;
+	width: 26px;
+	height: 26px;
+	line-height: 26px;
+	border-radius: 26px;
+	background: $buses-red;
+	color: white;
+	font-weight: normal;
+	margin: 9px;
+	font-family: "Gill Sans";
 }
 
 $header1: 24px;
@@ -178,89 +178,89 @@ $padding: $header1 / 2;
 $big-emblem: 36px;
 
 .stop-header {
-    display: flex;
-    align-items: flex-end;
+	display: flex;
+	align-items: flex-end;
 
-    margin-top: $bar-height;
-    height: 50vw;
-    padding: $padding;
-    background-size: 100vw 50vw;
-    color: white;
-    background-color: #666;
-    text-shadow: 0 1px 30px rgba(darken($buses-red, 20%), 0.4);
-    overflow: hidden; // prevent margin collapse
+	margin-top: $bar-height;
+	height: 50vw;
+	padding: $padding;
+	background-size: 100vw 50vw;
+	color: white;
+	background-color: #666;
+	text-shadow: 0 1px 30px rgba(darken($buses-red, 20%), 0.4);
+	overflow: hidden; // prevent margin collapse
 }
 
 .stop-header-contents {
-  flex: 1;
+	flex: 1;
 }
 
 .stop-title {
-    font-size: $header1;
-    margin: 0;
+	font-size: $header1;
+	margin: 0;
 
-    .bus-emblem {
-        width: $big-emblem;
-        height: $big-emblem;
-        line-height: $big-emblem;
-        border-radius: $big-emblem;
-        margin: 0;
-    }
+	.bus-emblem {
+		width: $big-emblem;
+		height: $big-emblem;
+		line-height: $big-emblem;
+		border-radius: $big-emblem;
+		margin: 0;
+	}
 }
 
 .stop-destination {
-    font-size: $header2;
-    font-weight: 300;
-    margin: 0;
-    padding-left: $big-emblem + 5px;
+	font-size: $header2;
+	font-weight: 300;
+	margin: 0;
+	padding-left: $big-emblem + 5px;
 }
 
 .stop-distance {
-  float: right;
-  font-variant: small-caps;
+	float: right;
+	font-variant: small-caps;
 }
 
 .bus-list, .bus-predictions {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    overflow: hidden;
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	overflow: hidden;
 }
 
 .bus-list-item {
-    line-height: $bar-height;
-    border-bottom: 1px solid #eee;
-    padding: 0 10px;
+	line-height: $bar-height;
+	border-bottom: 1px solid #eee;
+	padding: 0 10px;
 }
 
 .bus-predictions {
-    float: right;
+	float: right;
 }
 
 .bus-title {
-    display: inline-block;
-    font-size: 1.2em;
-    margin: 0 1em 0 0;
-    width: 2em;
+	display: inline-block;
+	font-size: 1.2em;
+	margin: 0 1em 0 0;
+	width: 2em;
 }
 
 .bus-prediction {
-    display: inline-block;
-    margin-left: .5em;
+	display: inline-block;
+	margin-left: .5em;
 
-    &:first-child {
-        font-weight: bold;
-    }
+	&:first-child {
+		font-weight: bold;
+	}
 }
 
 .error-banner {
-  position: fixed;
-  top: $bar-height;
-  left: 0;
-  right: 0;
-  padding: .5em;
-  text-align: center;
-  font-weight: bold;
-  color: white;
-  background: rgba(black, .8);
+	position: fixed;
+	top: $bar-height;
+	left: 0;
+	right: 0;
+	padding: .5em;
+	text-align: center;
+	font-weight: bold;
+	color: white;
+	background: rgba(black, .8);
 }
