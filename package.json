@@ -8,9 +8,7 @@
   },
   "browserify": {
     "transform": [
-      "babelify",
-      "sassify",
-      "cssify"
+      "babelify"
     ]
   },
   "babel": {
@@ -64,6 +62,7 @@
     "morgan": "^1.7.0",
     "mt-latlon": "0.0.3",
     "node-sass": "^3.13.0",
+    "node-sass-middleware": "^0.10.0",
     "preact": "^6.4.0",
     "serve-favicon": "^2.3.2",
     "tfl-busboy": "^1.1.3",

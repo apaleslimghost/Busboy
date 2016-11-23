@@ -119,4 +119,3 @@ class Busboy extends Component {
 }
 
 render(<Busboy/>, document.querySelector('main'));
-require('./index.scss');
