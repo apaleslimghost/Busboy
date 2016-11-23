@@ -152,3 +152,7 @@ class Busboy extends Component {
 }
 
 render(<Busboy/>, document.querySelector('main'));
+
+if('serviceWorker' in navigator) {
+	navigator.serviceWorker.register('/sw.js');
+}

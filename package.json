@@ -66,6 +66,7 @@
     "node-sass-middleware": "^0.10.0",
     "preact": "^6.4.0",
     "serve-favicon": "^2.3.2",
+    "sw-toolbox": "^3.4.0",
     "tfl-busboy": "^1.2.0"
   }
 }
