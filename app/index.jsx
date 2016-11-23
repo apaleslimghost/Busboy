@@ -1,5 +1,4 @@
-const React = require('react');
-const ReactDom = require('react-dom');
+const {h, Component, render} = require('preact');
 const _ = require('underscore');
 const Bacon = require('baconjs');
 const busboy = require('tfl-busboy');
@@ -32,7 +31,7 @@ const pollRepeatProperty = (prop, interval) =>
 		Bacon.interval(interval)
 	).map(prop).merge(prop.changes());
 
-class Busboy extends React.Component {
+class Busboy extends Component {
 	constructor(props) {
 		super(props);
 
@@ -121,6 +120,6 @@ class Busboy extends React.Component {
 	}
 }
 
-ReactDom.render(<Busboy/>, document.querySelector('main'));
+render(<Busboy/>, document.querySelector('main'));
 require('./index.scss');
 require('../node_modules/material-design-fonticons/styles/mdfi.css');

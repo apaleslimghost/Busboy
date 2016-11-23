@@ -1,4 +1,4 @@
-const React = require('react');
+const {h} = require('preact');
 const c = require('classnames');
 
 const Tab = ({active, stop, onClick}) => <a

@@ -1,4 +1,4 @@
-const React = require('react');
+const {h} = require('preact');
 const moment = require('moment');
 const _ = require('underscore');
 

@@ -1,4 +1,4 @@
-const React = require('react');
+const {h} = require('preact');
 const _ = require('underscore');
 const url = require('url');
 const Bus = require('./bus.jsx');
