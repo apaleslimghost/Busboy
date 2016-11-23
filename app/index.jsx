@@ -3,6 +3,7 @@ const ReactDom = require('react-dom');
 const _ = require('underscore');
 const Bacon = require('baconjs');
 const busboy = require('tfl-busboy');
+const c = require('classnames');
 
 const latLon = require('./latlon.js');
 const Tab = require('./tab.jsx');
@@ -10,18 +11,18 @@ const Icon = require('./icon.jsx');
 const Stop = require('./stop.jsx');
 
 
-const watchLocation = () => Bacon.fromEventTarget(
-	document,
-	'deviceready'
-).take(1).concat(
+const watchLocation = () =>
+Bacon.fromEventTarget(document, 'deviceready')
+.first()
+.concat(
 	Bacon.fromBinder(function(sink) {
 		const i = navigator.geolocation.watchPosition(
-			sink,
-			(e) => sink(new Bacon.Error(e))
+			location => sink(Object.assign(location, {located: true})),
+			error => sink(new Bacon.Error(error))
 		);
 		return () => navigator.geolocation.clearWatch(i);
 	})
-).toProperty({});
+).toProperty({located: false});
 
 const pollRepeatProperty = (prop, interval) =>
 	Bacon.once().concat(
@@ -34,7 +35,8 @@ class Busboy extends React.Component {
 
 		this.state = {
 			stops: {meta: {loading: true}},
-			currentStop: 0
+			currentStop: 0,
+			location: {located: false}
 		};
 
 		this.switchTab = this.switchTab.bind(this);
@@ -43,7 +45,7 @@ class Busboy extends React.Component {
 	componentWillMount() {
 		const location = watchLocation();
 		const repeatLocation = pollRepeatProperty(location, 15000);
-		const stops = repeatLocation.flatMap(function({coords}) {
+		const stops = repeatLocation.flatMap(function({coords, located}) {
 			return coords ? busboy.around({
 				lat: coords.latitude, lng: coords.longitude
 			}, Math.min(Math.max(coords.accuracy, 300), 1000)) : Bacon.never();
@@ -54,7 +56,11 @@ class Busboy extends React.Component {
 			return stops;
 		});
 
-		stops.onError((e) => console.log(e));
+		stops.onError(e => console.log(e));
+		location.onError(e => {
+			this.state.location.located = false;
+			this.setState(this.state);
+		});
 
 		this.plug(location, 'location');
 		this.plug(stops, 'stops');
@@ -84,7 +90,7 @@ class Busboy extends React.Component {
 	}
 
 	render() {
-		return <main className='app'>
+		return <main className={c('app', {'location-found': this.state.location.located})}>
 			<nav className='toolbar'>
 				<h1 className='toolbar-title'>Busboy</h1>
 				<div className='toolbar-tabs'>
@@ -94,7 +100,7 @@ class Busboy extends React.Component {
 				</div>
 				{this.state.stops.meta.loading && <Icon id='notification_sync' className='pull-right'/>}
 			</nav>
-			{this.stops().length &&
+			{!!this.stops().length &&
 				<Stop stop={this.stops()[this.state.currentStop]} location={this.state.location}/>
 			}
 		</main>;

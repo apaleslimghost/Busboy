@@ -1,6 +1,7 @@
 @import "fonts";
 
 $buses-red: #dc241f;
+$location-blue: #3355ff;
 
 * {
     box-sizing: border-box;
@@ -83,12 +84,63 @@ $bar-height: 44px;
     border-bottom: 3px solid $buses-red;
 }
 
+@keyframes busboy-location-ping {
+  0% {
+    box-shadow: 0 0 0 0 $location-blue;
+  }
+
+  100% {
+    box-shadow: 0 0 0 4px rgba($location-blue, 0);
+  }
+}
+
+@keyframes busboy-location-fade {
+  0% {
+    opacity: 0.9;
+  }
+
+  50% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
 .toolbar-title {
-    float: left;
-    padding-right: 1em;
-    font-size: inherit;
-    margin: 0;
-    text-transform: uppercase;
+  float: left;
+  padding-right: 1em;
+  font-size: inherit;
+  margin: 0;
+  text-transform: uppercase;
+
+  position: relative;
+
+  &:before {
+    content: '';
+    display: block;
+    background: $location-blue;
+    width: 8px;
+    height: 8px;
+    border-radius: 4px;
+    position: absolute;
+    right: calc(1em - 5px);
+    top: calc(1em - 5px);
+    opacity: 0.9;
+
+    transition-property: opacity box-shadow;
+    transition-timing-function: linear;
+    transition-duration: 0.2s;
+    animation: busboy-location-ping 1.5s infinite;
+  }
+
+  .location-found &:before {
+    animation: none;
+    box-shadow: 0 0 0 1.5px white, 0 0 0 3px $location-blue;
+    animation: busboy-location-fade 10s forwards;
+  }
 }
 
 .bus-emblem {
