@@ -32,7 +32,7 @@ const distanceToStart = ({stop, location}) =>
   ) / KILOMETERS_PER_MILE).toFixed(1);
 
 
-const gradient = img => `linear-gradient(to bottom, rgba(220,36,31,0.1), rgba(220,36,31,0.1), rgba(220,36,31,0.3)), url(${img}))`;
+const gradient = img => `linear-gradient(to bottom, rgba(220,36,31,0.1), rgba(220,36,31,0.1), rgba(220,36,31,0.3)), url(${img})`;
 
 const Stop = ({stop, location}) => <div className='stop'>
 <header className='stop-header' style={{backgroundImage: gradient(getStreetViewUrl(stop, {width: window.innerWidth}))}}>
