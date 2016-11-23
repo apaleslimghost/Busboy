@@ -9,7 +9,6 @@ const hmm = date => `${hh(date)}:${mm(date)}`
 
 function formatETA(t) {
 	const min = minuteDiff(t, new Date());
-	console.log(min);
 
 	if(min < 0) {
 		return `Due ${hmm(t)}`;
