@@ -1,5 +1,6 @@
 const React = require('react');
 const moment = require('moment');
+const _ = require('underscore');
 
 function formatETA(t) {
 	const min = t.diff(moment(), 'minutes');

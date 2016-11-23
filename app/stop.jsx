@@ -44,9 +44,10 @@ const Stop = ({stop, location}) => <div className='stop'>
 </header>
 <ul className='bus-list'>
 	{_.chain(stop.predictions)
+		.sortBy('estimatedTime')
 		.groupBy('lineName')
 		.pairs()
-		.sortBy((p) => new Date(p[1][0].estimatedTime))
+		.sortBy((p) => p[1][0].estimatedTime)
 		.map((p) => <Bus name={p[0]} key={p[0]} predictions={p[1]} /> )
 		.value()}
 	</ul>
