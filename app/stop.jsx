@@ -63,7 +63,7 @@ const renderPredictions = lines => Object.keys(lines)
 	.map(line => <Bus name={line} key={line} predictions={lines[line]} />);
 
 const Stop = ({stop, location}) => <div className='stop'>
-<header className='stop-header' style={{backgroundImage: gradient(getStreetViewUrl(stop, {width: window.innerWidth}))}}>
+<header className='stop-header' style={{backgroundImage: gradient(getStreetViewUrl(stop, {width: Math.min(640, 2 * window.innerWidth)}))}}>
 	<div className='stop-header-contents'>
 		<h3 className='stop-distance'>{distanceToStart({stop, location})}mi</h3>
 		<h1 className='stop-title'><span className='bus-emblem'>{stop.stopPointIndicator}</span> {stop.stopPointName}</h1>
