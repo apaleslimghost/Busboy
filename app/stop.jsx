@@ -19,7 +19,8 @@ const getStreetViewUrl = ({latitude, longitude, bearing}, {width}) => url.format
 		].join(),
 		fov: 180,
 		pitch: 0,
-		heading: bearing - 90
+		heading: bearing - 90,
+		key: 'AIzaSyB72sq43ul4q5j5t63_fhfvROfao4f1ktQ'
 	}
 });
 

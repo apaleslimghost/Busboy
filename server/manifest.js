@@ -6,7 +6,7 @@ const {resources, version} = require('../offline/resources');
 
 const manifest = `CACHE MANIFEST
 # v${version}
-# generated ${manifestDate.toDateString()}
+# generated ${manifestDate}
 
 ${resources.join('\n')}
 
