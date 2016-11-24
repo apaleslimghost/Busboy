@@ -3,7 +3,8 @@ exports.resources = [
 	'/index.html',
 	'/main.css',
 	'/main.js',
-	'/images/logo.png'
+	'/images/logo.png',
+	'/images/splash.png'
 ];
 
 exports.version = 3;
