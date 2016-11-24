@@ -1,15 +1,16 @@
 {
-	"name": "busboy-server",
-	"version": "0.0.0",
-	"scripts": {
-		"start": "node server.js",
-		"deploy": "echo deploying $npm_package_name && now",
-		"postdeploy": "now alias"
-	},
-	"now": {
-		"alias": "busboy"
-	},
-	"dependencies": {
+  "name": "busboy-server",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "node server.js",
+    "deploy": "echo deploying $npm_package_name && now",
+    "postdeploy": "now alias"
+  },
+  "now": {
+    "alias": "busboy"
+  },
+  "dependencies": {
+    "compression": "^1.6.2",
     "express": "^4.14.0",
     "express-http-proxy": "^0.10.1",
     "morgan": "^1.7.0",
