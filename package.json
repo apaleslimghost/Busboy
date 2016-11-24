@@ -4,7 +4,8 @@
   "description": "TfL live bus times app",
   "scripts": {
     "analyse": "NODE_ENV=production browserify --node -p discify app/index.jsx > /dev/null",
-    "postanalyse": "open disc/map.html"
+    "postanalyse": "open disc/map.html",
+    "start": "server.js"
   },
   "browserify": {
     "transform": [
