@@ -4,6 +4,7 @@ const logger = require('morgan');
 const browserify = require('browserify-middleware');
 const sass = require('node-sass-middleware');
 const proxy = require('express-http-proxy');
+const httpsRedirect = require('express-https-redirect');
 
 const {resources, version} = require('./offline/resources');
 
@@ -12,6 +13,8 @@ const serverStarted = new Date();
 
 app.use(favicon('public/favicon.ico'));
 app.use(logger('dev'));
+
+app.use(httpsRedirect());
 
 app.use('/main.js', browserify('app/index.jsx'));
 app.use('/sw.js', browserify('offline/service-worker.js'));

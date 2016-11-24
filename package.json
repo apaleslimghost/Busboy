@@ -5,7 +5,7 @@
   "scripts": {
     "analyse": "NODE_ENV=production browserify --node -p discify app/index.jsx > /dev/null",
     "postanalyse": "open disc/map.html",
-    "start": "server.js"
+    "start": "node server.js"
   },
   "browserify": {
     "transform": [
@@ -61,6 +61,7 @@
     "classnames": "^2.2.5",
     "express": "^4.14.0",
     "express-http-proxy": "^0.10.1",
+    "express-https-redirect": "^1.0.0",
     "morgan": "^1.7.0",
     "mt-latlon": "0.0.3",
     "node-sass": "^3.13.0",
