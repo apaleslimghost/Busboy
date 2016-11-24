@@ -2,6 +2,7 @@ import {h, Component, render} from 'preact';
 import Bacon from 'baconjs';
 import busboy from 'tfl-busboy';
 import c from 'classnames';
+import util from 'util';
 
 import latLon from './latlon.js';
 import Tab from './tab.jsx';
@@ -13,6 +14,20 @@ Object.assign(busboy.defaultOptions, {
 	hostname: location.hostname,
 	port: location.port,
 	path: '/_api/interfaces/ura/instant_V1'
+});
+
+const positionToPlain = position => ({
+	coords: position.coords ? {
+		latitude: position.coords.latitude,
+		longitude: position.coords.longitude,
+		altitude: position.coords.altitude,
+		accuracy: position.coords.accuracy,
+		altitudeAccuracy: position.coords.altitudeAccuracy,
+		heading: position.coords.heading,
+		speed: position.coords.speed,
+	} : undefined,
+	timestamp: position.timestamp,
+	located: position.located,
 });
 
 const watchLocation = () =>
@@ -153,14 +168,16 @@ class Busboy extends Component {
 				</div>
 			}
 
-			{false && <footer className='app-footer'>
-				Busboy
+			{this.props.debug && <footer className='app-footer'>
+				{util.inspect(
+					positionToPlain(this.state.location)
+				)}
 			</footer>}
 		</div>;
 	}
 }
 
-render(<Busboy/>, document.querySelector('main'));
+render(<Busboy debug={location.search === '?debug'}/>, document.querySelector('main'));
 
 if('serviceWorker' in navigator) {
 	navigator.serviceWorker.register('/sw.js');
