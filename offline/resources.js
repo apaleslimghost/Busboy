@@ -7,4 +7,4 @@ exports.resources = [
 	'/images/splash.png'
 ];
 
-exports.version = 3;
+exports.version = 4;
